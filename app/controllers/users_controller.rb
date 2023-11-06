@@ -5,7 +5,11 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:id])
+        if User.exists?(params[:id]) != false
+            @user = User.find(params[:id])
+        else
+            raise ActionController::RoutingError.new('404: Not Found')
+        end
     end
 
     def new
